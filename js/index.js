@@ -7,7 +7,7 @@ const modalBtn = document.querySelector('button[data-action="close-lightbox"]');
 
 // Cоздание разметки
 
-/* const createrGalleryItem = (image) => {
+const createrGalleryItem = (image) => {
     const { preview, original, description } = image;
     const galleryItem = 
     `<li class="gallery__item">
@@ -26,12 +26,12 @@ const modalBtn = document.querySelector('button[data-action="close-lightbox"]');
   return galleryItem;
 };
 
-const createGallery = createrGalleryItem.map(galleryItem).join('');
+const createGallery = galleryItems.map(createrGalleryItem).join('');
 
 gallery.insertAdjacentHTML('afterbegin', createGallery);
-*/
 
-const createrGalleryItem = galleryItems.map((img, index) => {
+
+/* const createrGalleryItem = galleryItems.map((img, index) => {
   const galleryItem = document.createElement('li');
   const link = document.createElement('a');
   const image = document.createElement('img');
@@ -49,11 +49,9 @@ const createrGalleryItem = galleryItems.map((img, index) => {
   galleryItem.appendChild(link);
   return galleryItem;
 });
- 
-const createGallery = (list) => list.forEach(item => {
-  return gallery.appendChild(item);
-});
-createGallery(createrGalleryItem);
+
+gallery.append(...createrGalleryItem); */
+
 
 // ОТКРЫТИЕ МОДАЛКИ
 
