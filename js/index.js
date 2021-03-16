@@ -31,28 +31,6 @@ const createGallery = galleryItems.map(createrGalleryItem).join('');
 gallery.insertAdjacentHTML('afterbegin', createGallery);
 
 
-/* const createrGalleryItem = galleryItems.map((img, index) => {
-  const galleryItem = document.createElement('li');
-  const link = document.createElement('a');
-  const image = document.createElement('img');
-
-  galleryItem.classList.add("gallery__item");
-  link.classList.add("gallery__link");
-  image.classList.add("gallery__image");
-  image.dataset.index = `${index}`;
-
-  link.setAttribute('href', img.original);
-  image.setAttribute('src', img.preview);
-  image.setAttribute('alt', img.description);
-  image.setAttribute('data-source', img.original);
-  link.appendChild(image);
-  galleryItem.appendChild(link);
-  return galleryItem;
-});
-
-gallery.append(...createrGalleryItem); */
-
-
 // ОТКРЫТИЕ МОДАЛКИ
 
 gallery.addEventListener('click', (e) => {
@@ -82,8 +60,7 @@ gallery.addEventListener('click', (e) => {
 
 function openModal(e) {
   modal.classList.add("is-open");
-  modalImg.src = e.target.dataset.source;
-  modalImg.alt = e.target.alt;
+  setImgAttr(e.target.dataset.source, e.target.alt);
 
   // Пролистывание вправо
   window.addEventListener('keydown', (e) => {
@@ -109,32 +86,50 @@ const galleryArray = galleryItems.map(img => {
 
 function moveByArrowRight() {
   let index = galleryArray.indexOf(modalImg.alt);
+  let step = 1;
 
   if (index === galleryArray.length - 1) {
     index = 0;
-    setImgAttr(index, 0);
+    step = 0;
+    setImgAttr(
+    galleryItems[index + step].original,
+    galleryItems[index + step].description
+    );
     return;
   };
   
-  setImgAttr(index, 1);
+  setImgAttr(
+  galleryItems[index + step].original,
+  galleryItems[index + step].description
+  );
 };
 
 function moveByArrowLeft() {
   let index = galleryArray.indexOf(modalImg.alt);
-
+  let step = -1;
+ 
   if (index === 0) {
     index = galleryArray.length - 1;
-    setImgAttr(index, 0);
+    step = 0;
+    setImgAttr(
+    galleryItems[index + step].original,
+    galleryItems[index + step].description
+    );
+    
     return;
   };
 
-  setImgAttr(index, -1);
+  setImgAttr(
+  galleryItems[index + step].original,
+  galleryItems[index + step].description
+  );
+  
 };
 
-function setImgAttr(index, step) {
-  modalImg.src = galleryItems[index + step].original;
-  modalImg.alt = galleryItems[index + step].description;
-};
+function setImgAttr(src, alt) {
+modalImg.src = src;
+modalImg.alt = alt;
+}
 
 function closeModal() {
   modal.classList.remove("is-open");
